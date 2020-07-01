@@ -1,0 +1,25 @@
+[14-May-2018 10:29:37 Asia/Jakarta] PHP Fatal error:  Call to undefined method CI_Upload::set_flashdata() in /home/aikogami/public_html/toko/app/controllers/Categories.php on line 66
+[14-May-2018 10:30:04 Asia/Jakarta] PHP Fatal error:  Call to undefined method CI_Upload::set_flashdata() in /home/aikogami/public_html/toko/app/controllers/Categories.php on line 66
+[10-Jun-2018 11:28:33 Asia/Jakarta] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/aikogami/public_html/toko/lib/database/drivers/mysqli/mysqli_result.php on line 229
+[04-Jul-2018 13:06:51 Asia/Jakarta] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/aikogami/public_html/toko/lib/database/drivers/mysqli/mysqli_result.php on line 229
+[25-Jul-2018 23:24:36 Asia/Jakarta] PHP Parse error:  syntax error, unexpected ')' in /home/aikogami/public_html/toko/app/controllers/Resi.php on line 7
+[25-Jul-2018 23:24:38 Asia/Jakarta] PHP Parse error:  syntax error, unexpected ')' in /home/aikogami/public_html/toko/app/controllers/Resi.php on line 7
+[25-Jul-2018 23:24:39 Asia/Jakarta] PHP Parse error:  syntax error, unexpected ')' in /home/aikogami/public_html/toko/app/controllers/Resi.php on line 7
+[13-Aug-2018 18:18:06 Asia/Jakarta] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/aikogami/public_html/toko/lib/database/drivers/mysqli/mysqli_result.php on line 229
+[23-Sep-2018 16:25:51 Asia/Jakarta] PHP Fatal error:  Call to a member function row() on boolean in /home/aikogami/public_html/toko/lib/libraries/Session/drivers/Session_database_driver.php on line 399
+[03-Oct-2018 17:03:13 Asia/Jakarta] PHP Fatal error:  Call to a member function num_rows() on boolean in /home/aikogami/public_html/toko/app/models/Pos_model.php on line 194
+[03-Oct-2018 17:03:19 Asia/Jakarta] PHP Fatal error:  Call to a member function num_rows() on boolean in /home/aikogami/public_html/toko/app/models/Pos_model.php on line 194
+[04-Oct-2018 15:46:23 Asia/Jakarta] PHP Fatal error:  Call to a member function row() on boolean in /home/aikogami/public_html/toko/lib/libraries/Session/drivers/Session_database_driver.php on line 399
+[23-Oct-2018 09:51:13 Asia/Jakarta] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/aikogami/public_html/toko/lib/database/drivers/mysqli/mysqli_result.php on line 229
+[24-Oct-2018 21:42:44 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[24-Oct-2018 21:43:14 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[01-Nov-2018 12:07:14 Asia/Jakarta] PHP Fatal error:  Call to a member function row() on boolean in /home/aikogami/public_html/toko/lib/libraries/Session/drivers/Session_database_driver.php on line 399
+[14-Nov-2018 10:51:05 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[13-Jan-2019 07:02:50 Asia/Jakarta] PHP Fatal error:  Call to a member function row() on boolean in /home/aikogami/public_html/toko/lib/libraries/Session/drivers/Session_database_driver.php on line 399
+[01-Feb-2019 02:09:39 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[27-Feb-2019 15:29:37 Asia/Jakarta] PHP Fatal error:  Call to a member function num_rows() on boolean in /home/aikogami/public_html/toko/app/models/Pos_model.php on line 194
+[26-Jun-2019 12:41:44 Asia/Jakarta] PHP Fatal error:  Call to a member function num_rows() on boolean in /home/aikogami/public_html/toko/app/models/Site.php on line 44
+[26-Jul-2019 14:30:52 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[26-Jul-2019 14:31:04 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[26-Jul-2019 14:31:12 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143
+[16-Oct-2019 08:34:48 Asia/Jakarta] PHP Fatal error:  session_start(): Failed to initialize storage module: user (path: sessions) in /home/aikogami/public_html/toko/lib/libraries/Session/Session.php on line 143

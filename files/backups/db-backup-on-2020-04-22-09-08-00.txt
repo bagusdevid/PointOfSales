@@ -1,0 +1,747 @@
+#
+# TABLE STRUCTURE FOR: tbl_categories
+#
+
+DROP TABLE IF EXISTS `tbl_categories`;
+
+CREATE TABLE `tbl_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) NOT NULL,
+  `name` varchar(55) NOT NULL,
+  `image` varchar(100) DEFAULT 'no_image.png',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_categories` (`id`, `code`, `name`, `image`) VALUES (13, 'CRS', 'CRYSTAL', 'no_image.png');
+INSERT INTO `tbl_categories` (`id`, `code`, `name`, `image`) VALUES (14, '1111', 'Obat', 'no_image.png');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_combo_items
+#
+
+DROP TABLE IF EXISTS `tbl_combo_items`;
+
+CREATE TABLE `tbl_combo_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `item_code` varchar(20) NOT NULL,
+  `quantity` decimal(12,4) NOT NULL,
+  `price` decimal(25,2) DEFAULT NULL,
+  `cost` decimal(25,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_customers
+#
+
+DROP TABLE IF EXISTS `tbl_customers`;
+
+CREATE TABLE `tbl_customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(55) NOT NULL,
+  `nama_pengirim` varchar(255) NOT NULL,
+  `no_pengirim` varchar(25) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` text NOT NULL,
+  `kurir` varchar(200) DEFAULT NULL,
+  `layanan` varchar(200) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_customers` (`id`, `name`, `nama_pengirim`, `no_pengirim`, `phone`, `address`, `kurir`, `layanan`, `store_id`) VALUES (1, 'default konsumen', 'GL GROSIR', '08123456789', '', 'jakarta', NULL, NULL, NULL);
+INSERT INTO `tbl_customers` (`id`, `name`, `nama_pengirim`, `no_pengirim`, `phone`, `address`, `kurir`, `layanan`, `store_id`) VALUES (2, 'test konsumen', 'GL Store', '0812345678', '0844444342243', 'jalan tes', 'JNE', 'Regular', NULL);
+
+
+#
+# TABLE STRUCTURE FOR: tbl_expenses
+#
+
+DROP TABLE IF EXISTS `tbl_expenses`;
+
+CREATE TABLE `tbl_expenses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `reference` varchar(50) NOT NULL,
+  `amount` decimal(25,2) NOT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `created_by` varchar(55) NOT NULL,
+  `attachment` varchar(55) DEFAULT NULL,
+  `store_id` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_gift_cards
+#
+
+DROP TABLE IF EXISTS `tbl_gift_cards`;
+
+CREATE TABLE `tbl_gift_cards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `card_no` varchar(20) NOT NULL,
+  `value` decimal(25,2) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `balance` decimal(25,2) NOT NULL,
+  `expiry` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `card_no` (`card_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_groups
+#
+
+DROP TABLE IF EXISTS `tbl_groups`;
+
+CREATE TABLE `tbl_groups` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_groups` (`id`, `name`, `description`) VALUES (1, 'admin', 'Administrator');
+INSERT INTO `tbl_groups` (`id`, `name`, `description`) VALUES (2, 'staff', 'Staff');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_login_attempts
+#
+
+DROP TABLE IF EXISTS `tbl_login_attempts`;
+
+CREATE TABLE `tbl_login_attempts` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ip_address` varbinary(16) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_payments
+#
+
+DROP TABLE IF EXISTS `tbl_payments`;
+
+CREATE TABLE `tbl_payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NULL DEFAULT current_timestamp(),
+  `sale_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `transaction_id` varchar(50) DEFAULT NULL,
+  `paid_by` varchar(20) NOT NULL,
+  `cheque_no` varchar(20) DEFAULT NULL,
+  `cc_no` varchar(20) DEFAULT NULL,
+  `cc_holder` varchar(25) DEFAULT NULL,
+  `cc_month` varchar(2) DEFAULT NULL,
+  `cc_year` varchar(4) DEFAULT NULL,
+  `cc_type` varchar(20) DEFAULT NULL,
+  `amount` decimal(25,2) NOT NULL,
+  `currency` varchar(3) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `attachment` varchar(55) DEFAULT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `pos_paid` decimal(25,2) DEFAULT 0.00,
+  `pos_balance` decimal(25,2) DEFAULT 0.00,
+  `gc_no` varchar(20) DEFAULT NULL,
+  `reference` varchar(50) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `store_id` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (24, '2020-04-17 15:45:50', 24, 1, NULL, 'cash', '', '', '', '', '', '', '200000.00', NULL, 1, NULL, '', '1470000.00', '1270000.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (25, '2020-04-17 15:53:40', 25, 1, NULL, 'cash', '', '', '', '', '', '', '300000.00', NULL, 1, NULL, '', '700000.00', '400000.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (26, '2020-04-18 09:06:07', 26, 1, NULL, 'cash', '', '', '', '', '', '', '300000.00', NULL, 1, NULL, '', '300000.00', '0.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (27, '2020-04-18 11:49:25', 27, 1, NULL, 'cash', '', '', '', '', '', '', '300000.00', NULL, 1, NULL, '', '300000.00', '0.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (28, '2020-04-18 14:53:09', 28, 1, NULL, 'cash', '', '', '', '', '', '', '320000.00', NULL, 1, NULL, '', '320000.00', '-320000.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (29, '2020-04-18 20:26:23', 29, 1, NULL, 'cash', '', '', '', '', '', '', '300000.00', NULL, 1, NULL, '', '520000.00', '220000.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (30, '2020-04-18 20:33:39', 30, 1, NULL, 'cash', '', '', '', '', '', '', '300000.00', NULL, 1, NULL, '', '500000.00', '200000.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (31, '2020-04-20 08:27:53', 31, 1, NULL, 'cash', '', '', '', '', '', '', '200000.00', NULL, 1, NULL, '', '200000.00', '0.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (32, '2020-04-20 08:28:52', 32, 1, NULL, 'cash', '', '', '', '', '', '', '20000.00', NULL, 1, NULL, '', '20000.00', '0.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (33, '2020-04-20 10:12:14', 33, 2, NULL, 'cash', '', '', '', '', '', '', '320000.00', NULL, 1, NULL, '', '500000.00', '180000.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (34, '2020-04-20 11:04:22', 34, 2, NULL, 'cash', '', '', '', '', '', '', '255.00', NULL, 13, NULL, '', '255.00', '0.00', '', NULL, NULL, NULL, 1);
+INSERT INTO `tbl_payments` (`id`, `date`, `sale_id`, `customer_id`, `transaction_id`, `paid_by`, `cheque_no`, `cc_no`, `cc_holder`, `cc_month`, `cc_year`, `cc_type`, `amount`, `currency`, `created_by`, `attachment`, `note`, `pos_paid`, `pos_balance`, `gc_no`, `reference`, `updated_by`, `updated_at`, `store_id`) VALUES (35, '2020-04-20 13:39:04', 35, 2, NULL, 'cash', '', '', '', '', '', '', '100015.00', NULL, 1, NULL, '', '100015.00', '0.00', '', NULL, NULL, NULL, 1);
+
+
+#
+# TABLE STRUCTURE FOR: tbl_printers
+#
+
+DROP TABLE IF EXISTS `tbl_printers`;
+
+CREATE TABLE `tbl_printers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(55) NOT NULL,
+  `type` varchar(25) NOT NULL,
+  `profile` varchar(25) NOT NULL,
+  `char_per_line` tinyint(3) unsigned DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `ip_address` varbinary(45) DEFAULT NULL,
+  `port` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_product_store_qty
+#
+
+DROP TABLE IF EXISTS `tbl_product_store_qty`;
+
+CREATE TABLE `tbl_product_store_qty` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `quantity` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `price` decimal(25,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  KEY `store_id` (`store_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_product_store_qty` (`id`, `product_id`, `store_id`, `quantity`, `price`) VALUES (16, 18, 1, '3.00', '200000.00');
+INSERT INTO `tbl_product_store_qty` (`id`, `product_id`, `store_id`, `quantity`, `price`) VALUES (17, 19, 1, '0.00', '100000.00');
+INSERT INTO `tbl_product_store_qty` (`id`, `product_id`, `store_id`, `quantity`, `price`) VALUES (18, 20, 1, '167.00', '20000.00');
+INSERT INTO `tbl_product_store_qty` (`id`, `product_id`, `store_id`, `quantity`, `price`) VALUES (19, 21, 1, '82.00', '15.00');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_products
+#
+
+DROP TABLE IF EXISTS `tbl_products`;
+
+CREATE TABLE `tbl_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) NOT NULL,
+  `name` char(255) NOT NULL,
+  `category_id` int(11) NOT NULL DEFAULT 1,
+  `price` decimal(25,2) NOT NULL,
+  `image` varchar(255) DEFAULT 'no_image.png',
+  `tax` varchar(20) DEFAULT NULL,
+  `cost` decimal(25,2) DEFAULT NULL,
+  `tax_method` tinyint(1) DEFAULT 1,
+  `quantity` decimal(15,2) DEFAULT 0.00,
+  `barcode_symbology` varchar(20) NOT NULL DEFAULT 'code39',
+  `type` varchar(20) NOT NULL DEFAULT 'standard',
+  `details` text DEFAULT NULL,
+  `alert_quantity` decimal(10,2) DEFAULT 0.00,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_products` (`id`, `code`, `name`, `category_id`, `price`, `image`, `tax`, `cost`, `tax_method`, `quantity`, `barcode_symbology`, `type`, `details`, `alert_quantity`) VALUES (18, '123', 'merries', 12, '200000.00', 'no_image.png', '0', '50000.00', 0, '0.00', 'code128', 'standard', '', '10.00');
+INSERT INTO `tbl_products` (`id`, `code`, `name`, `category_id`, `price`, `image`, `tax`, `cost`, `tax_method`, `quantity`, `barcode_symbology`, `type`, `details`, `alert_quantity`) VALUES (19, '1234', 'SGM', 11, '100000.00', 'no_image.png', '0', '20000.00', 0, '0.00', 'code128', 'standard', '', '10.00');
+INSERT INTO `tbl_products` (`id`, `code`, `name`, `category_id`, `price`, `image`, `tax`, `cost`, `tax_method`, `quantity`, `barcode_symbology`, `type`, `details`, `alert_quantity`) VALUES (20, 'CSB7613', 'BLACK TRIANGLE CRYSTAL', 13, '20000.00', 'no_image.png', '0', '10000.00', 0, '0.00', 'code128', 'standard', 'LOKASI 170120A', '0.00');
+INSERT INTO `tbl_products` (`id`, `code`, `name`, `category_id`, `price`, `image`, `tax`, `cost`, `tax_method`, `quantity`, `barcode_symbology`, `type`, `details`, `alert_quantity`) VALUES (21, '24135743', 'tes obat 1', 14, '15.00', 'no_image.png', '0', '10.00', 0, '0.00', 'code128', 'standard', 'tes obat 1', '50.00');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_purchase_items
+#
+
+DROP TABLE IF EXISTS `tbl_purchase_items`;
+
+CREATE TABLE `tbl_purchase_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `purchase_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `cost` decimal(25,2) NOT NULL,
+  `subtotal` decimal(25,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_purchases
+#
+
+DROP TABLE IF EXISTS `tbl_purchases`;
+
+CREATE TABLE `tbl_purchases` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reference` varchar(55) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `note` varchar(1000) NOT NULL,
+  `total` decimal(25,2) NOT NULL,
+  `attachment` varchar(255) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `received` tinyint(1) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_registers
+#
+
+DROP TABLE IF EXISTS `tbl_registers`;
+
+CREATE TABLE `tbl_registers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `user_id` int(11) NOT NULL,
+  `cash_in_hand` decimal(25,2) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `total_cash` decimal(25,2) DEFAULT NULL,
+  `total_cheques` int(11) DEFAULT NULL,
+  `total_cc_slips` int(11) DEFAULT NULL,
+  `total_cash_submitted` decimal(25,2) DEFAULT NULL,
+  `total_cheques_submitted` int(11) DEFAULT NULL,
+  `total_cc_slips_submitted` int(11) DEFAULT NULL,
+  `note` text DEFAULT NULL,
+  `closed_at` timestamp NULL DEFAULT NULL,
+  `transfer_opened_bills` varchar(50) DEFAULT NULL,
+  `closed_by` int(11) DEFAULT NULL,
+  `store_id` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_registers` (`id`, `date`, `user_id`, `cash_in_hand`, `status`, `total_cash`, `total_cheques`, `total_cc_slips`, `total_cash_submitted`, `total_cheques_submitted`, `total_cc_slips_submitted`, `note`, `closed_at`, `transfer_opened_bills`, `closed_by`, `store_id`) VALUES (6, '2020-04-17 14:15:45', 1, '1000000.00', 'open', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tbl_registers` (`id`, `date`, `user_id`, `cash_in_hand`, `status`, `total_cash`, `total_cheques`, `total_cc_slips`, `total_cash_submitted`, `total_cheques_submitted`, `total_cc_slips_submitted`, `note`, `closed_at`, `transfer_opened_bills`, `closed_by`, `store_id`) VALUES (7, '2020-04-20 11:01:48', 13, '100.00', 'open', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+
+
+#
+# TABLE STRUCTURE FOR: tbl_sale_items
+#
+
+DROP TABLE IF EXISTS `tbl_sale_items`;
+
+CREATE TABLE `tbl_sale_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `unit_price` decimal(25,2) NOT NULL,
+  `net_unit_price` decimal(25,2) NOT NULL,
+  `discount` varchar(20) DEFAULT NULL,
+  `item_discount` decimal(25,2) DEFAULT NULL,
+  `tax` int(20) DEFAULT NULL,
+  `item_tax` decimal(25,2) DEFAULT NULL,
+  `subtotal` decimal(25,2) NOT NULL,
+  `real_unit_price` decimal(25,2) DEFAULT NULL,
+  `cost` decimal(25,2) DEFAULT 0.00,
+  `product_code` varchar(50) DEFAULT NULL,
+  `product_name` varchar(50) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (28, 24, 19, '2.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '200000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (29, 25, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (30, 25, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (31, 26, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (32, 26, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (33, 27, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (34, 27, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (35, 28, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (36, 28, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (37, 28, 20, '1.00', '20000.00', '20000.00', '0', '0.00', 0, '0.00', '20000.00', '20000.00', '10000.00', 'CSB7613', 'BLACK TRIANGLE CRYSTAL', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (38, 29, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (39, 29, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (40, 30, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (41, 30, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (42, 31, 20, '10.00', '20000.00', '20000.00', '0', '0.00', 0, '0.00', '200000.00', '20000.00', '10000.00', 'CSB7613', 'BLACK TRIANGLE CRYSTAL', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (43, 32, 20, '1.00', '20000.00', '20000.00', '0', '0.00', 0, '0.00', '20000.00', '20000.00', '10000.00', 'CSB7613', 'BLACK TRIANGLE CRYSTAL', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (44, 33, 18, '1.00', '200000.00', '200000.00', '0', '0.00', 0, '0.00', '200000.00', '200000.00', '50000.00', '123', 'merries', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (45, 33, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (46, 33, 20, '1.00', '20000.00', '20000.00', '0', '0.00', 0, '0.00', '20000.00', '20000.00', '10000.00', 'CSB7613', 'BLACK TRIANGLE CRYSTAL', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (47, 34, 21, '17.00', '15.00', '15.00', '0', '0.00', 0, '0.00', '255.00', '15.00', '10.00', '24135743', 'tes obat 1', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (48, 35, 19, '1.00', '100000.00', '100000.00', '0', '0.00', 0, '0.00', '100000.00', '100000.00', '20000.00', '1234', 'SGM', '');
+INSERT INTO `tbl_sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price`, `net_unit_price`, `discount`, `item_discount`, `tax`, `item_tax`, `subtotal`, `real_unit_price`, `cost`, `product_code`, `product_name`, `comment`) VALUES (49, 35, 21, '1.00', '15.00', '15.00', '0', '0.00', 0, '0.00', '15.00', '15.00', '10.00', '24135743', 'tes obat 1', '');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_sales
+#
+
+DROP TABLE IF EXISTS `tbl_sales`;
+
+CREATE TABLE `tbl_sales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `customer_name` varchar(55) NOT NULL,
+  `total` decimal(25,2) NOT NULL,
+  `product_discount` decimal(25,2) DEFAULT NULL,
+  `order_discount_id` varchar(20) DEFAULT NULL,
+  `order_discount` decimal(25,2) DEFAULT NULL,
+  `total_discount` decimal(25,2) DEFAULT NULL,
+  `product_tax` decimal(25,2) DEFAULT NULL,
+  `order_tax_id` varchar(20) DEFAULT NULL,
+  `order_tax` decimal(25,2) DEFAULT NULL,
+  `total_tax` decimal(25,2) DEFAULT NULL,
+  `grand_total` decimal(25,2) NOT NULL,
+  `total_items` int(11) DEFAULT NULL,
+  `total_quantity` decimal(15,2) DEFAULT NULL,
+  `paid` decimal(25,2) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `rounding` decimal(8,2) DEFAULT NULL,
+  `store_id` int(11) NOT NULL DEFAULT 1,
+  `hold_ref` varchar(255) DEFAULT NULL,
+  `resi` varchar(255) DEFAULT NULL,
+  `kurir` varchar(100) DEFAULT NULL,
+  `tgl_input` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (24, '2020-04-17 15:45:50', 1, 'default konsumen', '200000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '200000.00', 1, '2.00', '200000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (25, '2020-04-17 15:53:40', 1, 'default konsumen', '300000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '300000.00', 2, '2.00', '300000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (26, '2020-04-18 09:06:07', 1, 'default konsumen', '300000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '300000.00', 2, '2.00', '300000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (27, '2020-04-18 11:49:25', 1, 'default konsumen', '300000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '300000.00', 2, '2.00', '300000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (28, '2020-04-18 14:53:09', 1, 'default konsumen', '320000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '320000.00', 3, '3.00', '320000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (29, '2020-04-18 20:26:23', 1, 'default konsumen', '300000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '300000.00', 2, '2.00', '300000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (30, '2020-04-18 20:33:39', 1, 'default konsumen', '300000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '300000.00', 2, '2.00', '300000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (31, '2020-04-20 08:27:53', 1, 'default konsumen', '200000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '200000.00', 1, '10.00', '200000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (32, '2020-04-20 08:28:52', 1, 'default konsumen', '20000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '20000.00', 1, '1.00', '20000.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (33, '2020-04-20 10:12:14', 2, 'test konsumen', '320000.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '320000.00', 3, '3.00', '320000.00', 1, NULL, NULL, 'tes', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (34, '2020-04-20 11:04:22', 2, 'test konsumen', '255.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '255.00', 1, '17.00', '255.00', 13, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_sales` (`id`, `date`, `customer_id`, `customer_name`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `grand_total`, `total_items`, `total_quantity`, `paid`, `created_by`, `updated_by`, `updated_at`, `note`, `status`, `rounding`, `store_id`, `hold_ref`, `resi`, `kurir`, `tgl_input`) VALUES (35, '2020-04-20 13:39:04', 2, 'test konsumen', '100015.00', '0.00', NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '100015.00', 2, '2.00', '100015.00', 1, NULL, NULL, '', 'paid', '0.00', 1, NULL, NULL, NULL, NULL);
+
+
+#
+# TABLE STRUCTURE FOR: tbl_sessions
+#
+
+DROP TABLE IF EXISTS `tbl_sessions`;
+
+CREATE TABLE `tbl_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT 0,
+  `data` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('0ddcfbd7d8c2698fb1a85b6b44aa83dec89aba85', '112.78.179.120', 1587203276, '__ci_last_regenerate|i:1587203276;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587186482\";last_ip|s:14:\"140.213.11.119\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";rmspos|i:1;message|s:30:\"Penjualan berhasil ditambahkan\";__ci_vars|a:1:{s:7:\"message\";s:3:\"old\";}');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('11f98dc4c49efd7c95e6a5ab565f3ef6bc43affb', '36.80.213.11', 1587217129, '__ci_last_regenerate|i:1587217129;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587196620\";last_ip|s:14:\"140.213.11.119\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('150d72bc6f6410eb5df8b683fcc334988432fd3f', '36.78.44.234', 1587364725, '__ci_last_regenerate|i:1587364725;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362112\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('15572dffd25ebc640bc279504c0b3428ec7c1e9c', '180.241.219.242', 1587369286, '__ci_last_regenerate|i:1587368986;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362238\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('1cdc7c8faedcfb6e45f16ca2f6a8814a28bbb007', '36.80.213.11', 1587218433, '__ci_last_regenerate|i:1587218058;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587196620\";last_ip|s:14:\"140.213.11.119\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('1dea79769c23cab59f66be68abc292b81e66a979', '140.213.11.100', 1587108676, '__ci_last_regenerate|i:1587108643;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587107729\";last_ip|s:14:\"140.213.11.100\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('20dbfd26cb495e998275290ec971cc4058b090e5', '140.213.11.119', 1587186529, '__ci_last_regenerate|i:1587186461;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587185760\";last_ip|s:14:\"112.215.235.81\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('329f4ace13c231a9c0c65d8794ee60037bcb4654', '36.78.44.234', 1587353677, '__ci_last_regenerate|i:1587353677;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587345974\";last_ip|s:14:\"103.105.31.102\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('3512fa0f3be7619a92bdf89e25069a864710bf8f', '36.69.158.144', 1587521150, '__ci_last_regenerate|i:1587521150;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587458670\";last_ip|s:13:\"140.213.0.182\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('392dada78368d4415983b76aa306360a731076ab', '140.213.134.198', 1587196648, '__ci_last_regenerate|i:1587196598;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587196345\";last_ip|s:14:\"112.78.179.120\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('3c1d17193843cbf7e481f76c37c3fab13040c4bd', '180.249.119.122', 1587187120, '__ci_last_regenerate|i:1587187120;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587185189\";last_ip|s:14:\"112.78.179.120\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('4b1be66c84289f5a4a774c6a2a5f8cea70a85613', '36.78.44.234', 1587363142, '__ci_last_regenerate|i:1587363142;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362112\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('4d3b05351d7a011eb86b8d17d6fa2374a8c8f9ef', '103.105.31.102', 1587346138, '__ci_last_regenerate|i:1587345964;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587217683\";last_ip|s:15:\"140.213.134.198\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('55a4007364fbaa80437a70e23564e0b3028f36d6', '180.243.78.218', 1587221452, '__ci_last_regenerate|i:1587221452;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('58eda023ceaf48352c2d8e6a8cb2a1036d834d11', '180.249.117.34', 1587114124, '__ci_last_regenerate|i:1587114124;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587108649\";last_ip|s:14:\"140.213.11.100\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";rmspos|i:1;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('5ff351675dd4fb73d062c3213076f649ab989529', '36.80.213.11', 1587352660, '__ci_last_regenerate|i:1587352660;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587345974\";last_ip|s:14:\"103.105.31.102\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('61c2f21ec637b9ca931d0db7d27a08b6adb527f5', '36.69.158.144', 1587519753, '__ci_last_regenerate|i:1587519753;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587458670\";last_ip|s:13:\"140.213.0.182\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('6669cacd397297255888cccffc15c57390ff85eb', '180.249.119.122', 1587185842, '__ci_last_regenerate|i:1587185842;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587185189\";last_ip|s:14:\"112.78.179.120\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('6685450de047d76ab4106be92f91a5cbdbd47aed', '140.213.14.56', 1587351593, '__ci_last_regenerate|i:1587351593;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('6938bba4126b0061447e9dca1d9594a9d0d81421', '140.213.0.182', 1587458792, '__ci_last_regenerate|i:1587458792;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('69d70ba29b44a0a2ef9fda4a9ae0ac76e6a4244e', '36.80.213.11', 1587353371, '__ci_last_regenerate|i:1587353371;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587345974\";last_ip|s:14:\"103.105.31.102\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('826337b9cf16ff83c3c9c4e5198ecaffe99b5340', '180.249.117.34', 1587113473, '__ci_last_regenerate|i:1587113473;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587108649\";last_ip|s:14:\"140.213.11.100\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('9082e7bce7c6934dade14956fe587c7e78d05be7', '36.78.44.234', 1587363692, '__ci_last_regenerate|i:1587363692;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362112\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('933fb3d9ccf9c0f6bd70c446eccca94b981c6b6e', '36.78.44.234', 1587362214, '__ci_last_regenerate|i:1587362214;identity|s:4:\"staf\";username|s:4:\"staf\";email|s:7:\"dr@g.lo\";user_id|s:2:\"13\";first_name|s:9:\"test staf\";last_name|s:3:\"tes\";created_on|s:22:\"20 April 2020 10:17:40\";old_last_login|s:10:\"1587355299\";last_ip|s:12:\"36.78.44.234\";avatar|N;gender|s:4:\"male\";group_id|s:1:\"2\";store_id|i:1;has_store_id|s:1:\"1\";register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";rmspos|i:1;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('94d0e7a079d9d1040d576110a2866fc90effff32', '36.69.158.144', 1587521274, '__ci_last_regenerate|i:1587521150;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587458670\";last_ip|s:13:\"140.213.0.182\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('9aa4ce27a906dd998213d77c36c31bfe208db512', '112.215.235.81', 1587185868, '__ci_last_regenerate|i:1587185742;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587185519\";last_ip|s:15:\"180.249.119.122\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('a06f030b47dc26ba6195ebd83182fb3b0fbc1136', '36.78.44.234', 1587355088, '__ci_last_regenerate|i:1587355088;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587345974\";last_ip|s:14:\"103.105.31.102\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('a4ece0e7887d45501a4d705959413d6e314e6f9d', '36.80.213.11', 1587352334, '__ci_last_regenerate|i:1587352334;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587345974\";last_ip|s:14:\"103.105.31.102\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('ad5adbda08555d33e26c75c9b869b1e9838cc9b1', '36.78.44.234', 1587362649, '__ci_last_regenerate|i:1587362649;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362112\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('b11a1b014c86205e78c9c545c8b99a623dbff0e0', '112.78.179.120', 1587185365, '__ci_last_regenerate|i:1587185177;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587175436\";last_ip|s:15:\"125.161.135.243\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";rmspos|i:1;message|s:30:\"Penjualan berhasil ditambahkan\";__ci_vars|a:1:{s:7:\"message\";s:3:\"old\";}');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('b245bf6908eff5c1d4f6f037ada279af2409c1f1', '140.213.14.56', 1587351593, '__ci_last_regenerate|i:1587351593;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('b5744e7a7b78cceb9bd44d4964f73e0f7c6cdbf5', '180.249.119.122', 1587187124, '__ci_last_regenerate|i:1587187120;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587185189\";last_ip|s:14:\"112.78.179.120\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('c33197c6354de80a3c06ab2636ad413c30d431a0', '36.80.213.11', 1587216675, '__ci_last_regenerate|i:1587216675;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587196620\";last_ip|s:14:\"140.213.11.119\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('c4d50d560e6ff799cdbf22763581fcb8311326c0', '36.80.213.11', 1587218058, '__ci_last_regenerate|i:1587218058;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587196620\";last_ip|s:14:\"140.213.11.119\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('c5dff6b5bc3873b52c18c43824ce207679df0149', '112.78.179.120', 1587203276, '__ci_last_regenerate|i:1587203276;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587186482\";last_ip|s:14:\"140.213.11.119\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";rmspos|i:1;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('c7a30de365b29cc7b83a471c9fb7d4bd4b9957aa', '125.161.135.243', 1587175634, '__ci_last_regenerate|i:1587175425;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587113098\";last_ip|s:14:\"180.249.117.34\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('d196aa745f1043a47b04ce35253133d282f9ef44', '36.78.44.234', 1587364751, '__ci_last_regenerate|i:1587364725;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362112\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";rmspos|i:1;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('df8b74dedf3361615d9c4c1d8bc45fe3f8bf0b64', '36.78.44.234', 1587362123, '__ci_last_regenerate|i:1587362103;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587355384\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('e02b761997a2cea31bdf1d7f00207e1e26b6929f', '180.249.117.34', 1587114124, '__ci_last_regenerate|i:1587114124;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587108649\";last_ip|s:14:\"140.213.11.100\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('e2d78859df887a017fe926086935834a7ad4ca79', '36.78.44.234', 1587364067, '__ci_last_regenerate|i:1587364067;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587362112\";last_ip|s:12:\"36.78.44.234\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('e92dc810fddffa4c4b192b99312d80f2fe5d297c', '112.215.45.32', 1587254757, '__ci_last_regenerate|i:1587254757;');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('f3df012a276a8b8d64a5901d601f7ced100247eb', '140.213.11.100', 1587108643, '__ci_last_regenerate|i:1587108643;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1580283044\";last_ip|s:12:\"36.71.238.18\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|i:1;has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+INSERT INTO `tbl_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES ('f896f4bb9eb86c0d9d94dc62b749279dce084bc2', '140.213.134.198', 1587218131, '__ci_last_regenerate|i:1587217675;identity|s:5:\"admin\";username|s:5:\"admin\";email|s:23:\"goldlionstore@gmail.com\";user_id|s:1:\"1\";first_name|s:2:\"GL\";last_name|s:5:\"Store\";created_on|s:22:\"19 April 2018 20:37:37\";old_last_login|s:10:\"1587216344\";last_ip|s:12:\"36.80.213.11\";avatar|s:36:\"baf96b6aa13760cc2ecece587e73c1f8.jpg\";gender|s:4:\"male\";group_id|s:1:\"1\";store_id|s:1:\"1\";has_store_id|N;register_id|s:1:\"6\";cash_in_hand|s:10:\"1000000.00\";register_open_time|s:19:\"2020-04-17 14:15:45\";');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_settings
+#
+
+DROP TABLE IF EXISTS `tbl_settings`;
+
+CREATE TABLE `tbl_settings` (
+  `setting_id` int(1) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `site_name` varchar(55) NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `dateformat` varchar(20) DEFAULT NULL,
+  `timeformat` varchar(20) DEFAULT NULL,
+  `default_email` varchar(100) NOT NULL,
+  `language` varchar(20) NOT NULL,
+  `version` varchar(10) NOT NULL DEFAULT '1.0',
+  `theme` varchar(20) NOT NULL,
+  `timezone` varchar(255) NOT NULL DEFAULT '0',
+  `protocol` varchar(20) NOT NULL DEFAULT 'mail',
+  `smtp_host` varchar(255) DEFAULT NULL,
+  `smtp_user` varchar(100) DEFAULT NULL,
+  `smtp_pass` varchar(255) DEFAULT NULL,
+  `smtp_port` varchar(10) DEFAULT '25',
+  `smtp_crypto` varchar(5) DEFAULT NULL,
+  `mmode` tinyint(1) NOT NULL,
+  `captcha` tinyint(1) NOT NULL DEFAULT 1,
+  `mailpath` varchar(55) DEFAULT NULL,
+  `currency_prefix` varchar(3) NOT NULL,
+  `default_customer` int(11) NOT NULL,
+  `default_tax_rate` varchar(20) NOT NULL,
+  `rows_per_page` int(2) NOT NULL,
+  `total_rows` int(2) NOT NULL,
+  `header` varchar(1000) DEFAULT NULL,
+  `footer` varchar(1000) DEFAULT NULL,
+  `bsty` tinyint(4) NOT NULL,
+  `display_kb` tinyint(4) NOT NULL,
+  `default_category` int(11) NOT NULL,
+  `default_discount` varchar(20) NOT NULL,
+  `item_addition` tinyint(1) NOT NULL,
+  `barcode_symbology` varchar(55) DEFAULT NULL,
+  `pro_limit` tinyint(4) NOT NULL,
+  `decimals` tinyint(1) NOT NULL DEFAULT 2,
+  `thousands_sep` varchar(2) NOT NULL DEFAULT ',',
+  `decimals_sep` varchar(2) NOT NULL DEFAULT '.',
+  `focus_add_item` varchar(55) DEFAULT NULL,
+  `add_customer` varchar(55) DEFAULT NULL,
+  `toggle_category_slider` varchar(55) DEFAULT NULL,
+  `cancel_sale` varchar(55) DEFAULT NULL,
+  `suspend_sale` varchar(55) DEFAULT NULL,
+  `print_order` varchar(55) DEFAULT NULL,
+  `print_bill` varchar(55) DEFAULT NULL,
+  `finalize_sale` varchar(55) DEFAULT NULL,
+  `today_sale` varchar(55) DEFAULT NULL,
+  `open_hold_bills` varchar(55) DEFAULT NULL,
+  `close_register` varchar(55) DEFAULT NULL,
+  `java_applet` tinyint(1) NOT NULL,
+  `receipt_printer` varchar(55) DEFAULT NULL,
+  `pos_printers` varchar(255) DEFAULT NULL,
+  `cash_drawer_codes` varchar(55) DEFAULT NULL,
+  `char_per_line` tinyint(4) DEFAULT 42,
+  `rounding` tinyint(1) DEFAULT 0,
+  `pin_code` varchar(20) DEFAULT NULL,
+  `stripe` tinyint(1) DEFAULT NULL,
+  `stripe_secret_key` varchar(100) DEFAULT NULL,
+  `stripe_publishable_key` varchar(100) DEFAULT NULL,
+  `purchase_code` varchar(100) DEFAULT NULL,
+  `envato_username` varchar(50) DEFAULT NULL,
+  `theme_style` varchar(25) DEFAULT 'green',
+  `after_sale_page` tinyint(1) DEFAULT NULL,
+  `overselling` tinyint(1) DEFAULT 1,
+  `multi_store` tinyint(1) DEFAULT NULL,
+  `qty_decimals` tinyint(1) DEFAULT 2,
+  `symbol` varchar(55) DEFAULT NULL,
+  `sac` tinyint(1) DEFAULT 0,
+  `display_symbol` tinyint(1) DEFAULT NULL,
+  `remote_printing` tinyint(1) DEFAULT 1,
+  `printer` int(11) DEFAULT NULL,
+  `order_printers` varchar(55) DEFAULT NULL,
+  `auto_print` tinyint(1) DEFAULT 0,
+  `local_printers` tinyint(1) DEFAULT NULL,
+  `rtl` tinyint(1) DEFAULT NULL,
+  `print_img` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`setting_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_settings` (`setting_id`, `logo`, `site_name`, `tel`, `dateformat`, `timeformat`, `default_email`, `language`, `version`, `theme`, `timezone`, `protocol`, `smtp_host`, `smtp_user`, `smtp_pass`, `smtp_port`, `smtp_crypto`, `mmode`, `captcha`, `mailpath`, `currency_prefix`, `default_customer`, `default_tax_rate`, `rows_per_page`, `total_rows`, `header`, `footer`, `bsty`, `display_kb`, `default_category`, `default_discount`, `item_addition`, `barcode_symbology`, `pro_limit`, `decimals`, `thousands_sep`, `decimals_sep`, `focus_add_item`, `add_customer`, `toggle_category_slider`, `cancel_sale`, `suspend_sale`, `print_order`, `print_bill`, `finalize_sale`, `today_sale`, `open_hold_bills`, `close_register`, `java_applet`, `receipt_printer`, `pos_printers`, `cash_drawer_codes`, `char_per_line`, `rounding`, `pin_code`, `stripe`, `stripe_secret_key`, `stripe_publishable_key`, `purchase_code`, `envato_username`, `theme_style`, `after_sale_page`, `overselling`, `multi_store`, `qty_decimals`, `symbol`, `sac`, `display_symbol`, `remote_printing`, `printer`, `order_printers`, `auto_print`, `local_printers`, `rtl`, `print_img`) VALUES (1, 'logo1.png', 'GL Store', '0812345678', 'd F Y', 'H:i:s', '', 'indonesian', '1.0', 'default', 'Asia/Kuala_Lumpur', '', 'pop.gmail.com', 'noreply@aikogamis.com', '', '25', '', 0, 0, NULL, 'IDR', 1, '0', 100, 30, NULL, NULL, 1, 1, 0, '0', 1, NULL, 127, 0, ',', '.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', '', '', 42, NULL, NULL, NULL, NULL, NULL, 'a0de5805-13d4-4bb5-a1c6-4a6837b5cda3', 'savagega', 'green', 0, NULL, 0, 0, 'Rp', 0, 0, 0, 2, '[\"2\"]', NULL, 1, NULL, 0);
+
+
+#
+# TABLE STRUCTURE FOR: tbl_stores
+#
+
+DROP TABLE IF EXISTS `tbl_stores`;
+
+CREATE TABLE `tbl_stores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `code` varchar(20) NOT NULL,
+  `logo` varchar(40) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(15) NOT NULL,
+  `address1` varchar(50) DEFAULT NULL,
+  `address2` varchar(50) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `state` varchar(20) DEFAULT NULL,
+  `postal_code` varchar(8) DEFAULT NULL,
+  `country` varchar(25) DEFAULT NULL,
+  `currency_code` varchar(3) DEFAULT NULL,
+  `receipt_header` text DEFAULT NULL,
+  `receipt_footer` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_stores` (`id`, `name`, `code`, `logo`, `email`, `phone`, `address1`, `address2`, `city`, `state`, `postal_code`, `country`, `currency_code`, `receipt_header`, `receipt_footer`) VALUES (1, 'Gold Lion Store', 'GLNI', 'logo.png', 'admin@admin.com', '083808381212', 'Gold Lion Street', 'District GLNI', 'Jombang', 'Banten', '15414', 'Indonesia', 'IDR', '', 'Terima Kasih Telah Berbelanja Di Gold Lion Store Indonesia');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_suppliers
+#
+
+DROP TABLE IF EXISTS `tbl_suppliers`;
+
+CREATE TABLE `tbl_suppliers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(55) NOT NULL,
+  `cf1` varchar(255) NOT NULL,
+  `cf2` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_suppliers` (`id`, `name`, `cf1`, `cf2`, `phone`, `email`) VALUES (8, 'INDRA', '', '', '', '');
+INSERT INTO `tbl_suppliers` (`id`, `name`, `cf1`, `cf2`, `phone`, `email`) VALUES (9, 'ID', '', '', '', '');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_suspended_items
+#
+
+DROP TABLE IF EXISTS `tbl_suspended_items`;
+
+CREATE TABLE `tbl_suspended_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `suspend_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `unit_price` decimal(25,2) NOT NULL,
+  `net_unit_price` decimal(25,2) NOT NULL,
+  `discount` varchar(20) DEFAULT NULL,
+  `item_discount` decimal(25,2) DEFAULT NULL,
+  `tax` int(20) DEFAULT NULL,
+  `item_tax` decimal(25,2) DEFAULT NULL,
+  `subtotal` decimal(25,2) NOT NULL,
+  `real_unit_price` decimal(25,2) DEFAULT NULL,
+  `product_code` varchar(50) DEFAULT NULL,
+  `product_name` varchar(50) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_suspended_sales
+#
+
+DROP TABLE IF EXISTS `tbl_suspended_sales`;
+
+CREATE TABLE `tbl_suspended_sales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `customer_name` varchar(55) NOT NULL,
+  `total` decimal(25,2) NOT NULL,
+  `product_discount` decimal(25,2) DEFAULT NULL,
+  `order_discount_id` varchar(20) DEFAULT NULL,
+  `order_discount` decimal(25,2) DEFAULT NULL,
+  `total_discount` decimal(25,2) DEFAULT NULL,
+  `product_tax` decimal(25,2) DEFAULT NULL,
+  `order_tax_id` varchar(20) DEFAULT NULL,
+  `order_tax` decimal(25,2) DEFAULT NULL,
+  `total_tax` decimal(25,2) DEFAULT NULL,
+  `grand_total` decimal(25,2) NOT NULL,
+  `total_items` int(11) DEFAULT NULL,
+  `total_quantity` decimal(15,2) DEFAULT NULL,
+  `paid` decimal(25,2) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `hold_ref` varchar(255) DEFAULT NULL,
+  `store_id` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: tbl_user_logins
+#
+
+DROP TABLE IF EXISTS `tbl_user_logins`;
+
+CREATE TABLE `tbl_user_logins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `ip_address` varbinary(16) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (80, 1, NULL, '140.213.11.100', 'admin', '2020-04-17 14:15:29');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (81, 1, NULL, '140.213.11.100', 'admin', '2020-04-17 14:30:49');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (82, 1, NULL, '180.249.117.34', 'admin', '2020-04-17 15:44:58');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (83, 1, NULL, '125.161.135.243', 'admin', '2020-04-18 09:03:56');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (84, 1, NULL, '112.78.179.120', 'admin', '2020-04-18 11:46:29');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (85, 1, NULL, '180.249.119.122', 'admin', '2020-04-18 11:51:59');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (86, 1, NULL, '112.215.235.81', 'admin', '2020-04-18 11:56:00');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (87, 1, NULL, '140.213.11.119', 'admin', '2020-04-18 12:08:02');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (88, 1, NULL, '112.78.179.120', 'admin', '2020-04-18 14:52:25');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (89, 1, NULL, '140.213.11.119', 'admin', '2020-04-18 14:57:00');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (90, 1, NULL, '36.80.213.11', 'admin', '2020-04-18 20:25:44');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (91, 1, NULL, '140.213.134.198', 'admin', '2020-04-18 20:48:03');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (92, 1, NULL, '103.105.31.102', 'admin', '2020-04-20 08:26:14');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (93, 1, NULL, '36.80.213.11', 'admin', '2020-04-20 10:01:36');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (94, 13, NULL, '36.78.44.234', 'staf', '2020-04-20 11:01:39');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (95, 1, NULL, '36.78.44.234', 'admin', '2020-04-20 11:03:04');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (96, 13, NULL, '36.78.44.234', 'staf', '2020-04-20 11:04:02');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (97, 1, NULL, '36.78.44.234', 'admin', '2020-04-20 12:55:12');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (98, 1, NULL, '36.78.44.234', 'admin', '2020-04-20 12:57:18');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (99, 1, NULL, '180.241.219.242', 'admin', '2020-04-20 14:50:02');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (100, 1, NULL, '140.213.0.182', 'admin', '2020-04-21 15:44:30');
+INSERT INTO `tbl_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `login`, `time`) VALUES (101, 1, NULL, '36.69.158.144', 'admin', '2020-04-22 08:37:48');
+
+
+#
+# TABLE STRUCTURE FOR: tbl_users
+#
+
+DROP TABLE IF EXISTS `tbl_users`;
+
+CREATE TABLE `tbl_users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `last_ip_address` varbinary(45) DEFAULT NULL,
+  `ip_address` varbinary(45) DEFAULT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `salt` varchar(40) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `activation_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_time` int(11) unsigned DEFAULT NULL,
+  `remember_code` varchar(40) DEFAULT NULL,
+  `created_on` int(11) unsigned NOT NULL,
+  `last_login` int(11) unsigned DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `avatar` varchar(55) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  `group_id` int(11) unsigned NOT NULL DEFAULT 2,
+  `store_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+INSERT INTO `tbl_users` (`id`, `last_ip_address`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `avatar`, `gender`, `group_id`, `store_id`) VALUES (1, '36.69.158.144', '::1', 'admin', '18a60c37a48319890063587963caa050fec1e5d0', NULL, 'goldlionstore@gmail.com', NULL, NULL, NULL, NULL, 1524145057, 1587519468, 1, 'GL', 'Store', NULL, '08123456', 'baf96b6aa13760cc2ecece587e73c1f8.jpg', 'male', 1, NULL);
+INSERT INTO `tbl_users` (`id`, `last_ip_address`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `avatar`, `gender`, `group_id`, `store_id`) VALUES (8, '180.241.142.95', '125.163.56.2', 'nisa', 'e0261b45be71efcdd66c2293013642b5f8c1ec0c', NULL, 'goldlionstore@gmail.com', NULL, NULL, NULL, NULL, 1532537501, 1580020927, 1, 'tia', 'Admin3', NULL, '085884026749', '20c008e5f38330c44375b73e627dbab7.jpg', 'female', 2, 1);
+INSERT INTO `tbl_users` (`id`, `last_ip_address`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `avatar`, `gender`, `group_id`, `store_id`) VALUES (10, '36.79.250.244', '36.79.171.95', 'dinda', '18a60c37a48319890063587963caa050fec1e5d0', NULL, 'goldlionstore@gmail.com', NULL, NULL, NULL, NULL, 1533374763, 1577702676, 1, 'Dinda', 'Admin1', NULL, '089560193455', 'f73cf0bab4b66088574106e749ca461c.jpg', 'female', 2, 1);
+INSERT INTO `tbl_users` (`id`, `last_ip_address`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `avatar`, `gender`, `group_id`, `store_id`) VALUES (13, '36.78.44.234', '36.80.213.11', 'staf', '60f95f0f03e60ec63377265170ce0f241ad381a1', NULL, 'dr@g.lo', NULL, NULL, NULL, NULL, 1587352660, 1587355442, 1, 'test staf', 'tes', NULL, '0788888888', NULL, 'male', 2, 1);
+
+
