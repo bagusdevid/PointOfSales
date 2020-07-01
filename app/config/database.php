@@ -64,9 +64,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'merdeka.hopto.org',
-	'username' => 'tubagus',
-	'password' => 'kontolkuda',
+	'hostname' => 'localhost',
+	'username' => 'pos',
+	'password' => 'pos',
 	'database' => 'pos',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'tbl_',
